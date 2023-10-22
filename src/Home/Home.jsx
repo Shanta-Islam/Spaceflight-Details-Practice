@@ -4,9 +4,10 @@ import { AppContext } from "../contexts/Context";
 import { FaSearch } from "react-icons/fa";
 
 const Home = () => {
-    const {flightData, setFlightData}  = useContext(AppContext);
+    const { flightData, setFlightData } = useContext(AppContext);
     const [searchVal, setSearchVal] = useState("");
     const handleSearchClick = () => {
+
         if (searchVal === "") {
             setFlightData(flightData);
             return;
@@ -14,16 +15,35 @@ const Home = () => {
         else {
             let filterBySearch = flightData.filter((item) => {
 
-                if (item.mission_name.toLowerCase().startsWith(searchVal.toLowerCase())) {
+                if (item.rocket.rocket_name.toLowerCase().includes(searchVal.toLowerCase())) {
                     // console.log(item)
                     return true;
                 }
             })
-
+            setSearchVal == "";
             setFlightData(filterBySearch);
+
         }
 
 
+
+    }
+
+    const handleLaunchStatus = (e) => {
+        e.preventDefault();
+        let arr = [];
+        let value = e.target.value;
+        
+        let filterByStatus = flightData.filter((item) => {
+            if(item.launch_success.toString().includes(value)){
+                arr.push(item);
+                return arr;
+            }
+            
+            setFlightData(arr);
+        })
+        
+       
     }
     return (
         <div className="container">
@@ -32,9 +52,18 @@ const Home = () => {
                 <p className="lead text-center">Find out the elaborate features of all the past big spaceflights.</p>
             </div>
             <div className="row">
+                <div className="col-md-9 col"></div>
+                <div className="col-md-3 col-sm-12 justify-content-end">
+                    <div className="form-check">
+                        <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                        <label className="form-check-label" htmlFor="flexCheckDefault">
+                            Show Upcoming Only
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div className="row">
                 <div className="col-md-3 col-sm-12 d-flex">
-                    {/* <input className="form-control" type="text" placeholder="Search" aria-label="Search" />
-                    <button className="btn btn-primary">Search</button> */}
 
                     <div className="input-group md-form form-sm form-1 pl-0">
                         <input
@@ -54,10 +83,10 @@ const Home = () => {
 
                 <div className="col-md-3 col"></div>
                 <div className="col-md-3 col-sm-12">
-                    <select className="form-select" aria-label="Default select example">
+                    <select className="form-select" aria-label="Default select example" onChange={handleLaunchStatus}>
                         <option selected>By Launch Status</option>
-                        <option value="1">Failed</option>
-                        <option value="2">Success</option>
+                        <option value="false">Failed</option>
+                        <option value="true">Success</option>
                     </select>
                 </div>
                 <div className="col-md-3 col-sm-12">
@@ -72,9 +101,9 @@ const Home = () => {
             <div className="row mt-5">
 
                 {
-                   flightData.map(Sdata => <SingleCard key={Sdata.flight_number} Sdata={Sdata}></SingleCard>)
+                    flightData.map(Sdata => <SingleCard key={Sdata.flight_number} Sdata={Sdata}></SingleCard>)
                 }
-                
+
 
             </div>
         </div>

@@ -8,7 +8,7 @@ const SingleCard = ({ Sdata }) => {
                 <div className="card-body text-center">
                     <h6>Launch Date: {moment.utc(Sdata.launch_date_local).format("ll")}</h6>
                     <h5 className="card-title">{Sdata.mission_name}</h5>
-                    <p>{Sdata.rocket.rocket_id}</p>
+                    <p>{Sdata.rocket.rocket_name}</p>
                     <p className="card-text">Launch Status:</p>
                     <p>{Sdata.launch_success ? <span className='badge bg-success'>Success</span> : <span className='badge bg-danger'>Failed</span>}</p>
                 </div>
