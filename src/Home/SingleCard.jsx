@@ -1,7 +1,6 @@
 import moment from 'moment/moment';
 import PropTypes from 'prop-types';
 const SingleCard = ({ Sdata }) => {
-    console.log(Sdata.launch_success);
     return (
         <div className="col-md-6 col-lg-4">
             <div className="card p-2" style={{ width: 350 }}>

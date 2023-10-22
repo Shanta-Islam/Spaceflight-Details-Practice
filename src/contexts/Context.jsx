@@ -37,7 +37,7 @@ useEffect(() => {
 
 },[]);
 
-return <AppContext.Provider value={{ isLoading, isError, flightData }}>
+return <AppContext.Provider value={{ isLoading, isError, flightData, setFlightData }}>
     {children}
 </AppContext.Provider>
 };
