@@ -34,7 +34,7 @@ const Home = () => {
         let arr = [];
         let value = e.target.value;
         
-        let filterByStatus = flightData.filter((item) => {
+        flightData.filter((item) => {
             if(item.launch_success.toString().includes(value)){
                 arr.push(item);
                 return arr;
@@ -44,6 +44,19 @@ const Home = () => {
         })
         
        
+    }
+    const handleUpcoming = (e)=>{
+        e.preventDefault();
+        let arr = [];
+        let value = e.target.value;
+        flightData.filter((item) => {
+            if(item.upcoming.toString().includes(value)){
+                arr.push(item);
+                return arr;
+            }
+            
+            setFlightData(arr);
+        })
     }
     return (
         <div className="container">
@@ -55,7 +68,7 @@ const Home = () => {
                 <div className="col-md-9 col"></div>
                 <div className="col-md-3 col-sm-12 justify-content-end">
                     <div className="form-check">
-                        <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                        <input className="form-check-input" type="checkbox" value="true" id="flexCheckDefault" onChange={handleUpcoming} />
                         <label className="form-check-label" htmlFor="flexCheckDefault">
                             Show Upcoming Only
                         </label>
